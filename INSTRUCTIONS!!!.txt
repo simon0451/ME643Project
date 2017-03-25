@@ -8,7 +8,7 @@ In the command window type in: git init
 This initializes the folder you are in as a git repository
 
 Next you need to add the "remote origin" - this is basically telling git where you want to download and upload (pull and push) your info from.
-Type in git remote add origin https://github.com/simon0451/ME643Project
+Type in: git remote add origin https://github.com/simon0451/ME643Project
 This is the git repository we are all working on for this project, you can change the URL for different projects in the future
 
 Type in: git pull https://github.com/simon0451/ME643Project
