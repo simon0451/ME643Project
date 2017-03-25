@@ -1,0 +1,45 @@
+How to use git
+
+Download the program git, then create and activate an account on www.github.com, next ask Simon for an invite to the project
+
+Create a folder where you want to save your files
+Go inside that folder and shift right click, open command window here
+In the command window type in: git init
+This initializes the folder you are in as a git repository
+
+Next you need to add the "remote origin" - this is basically telling git where you want to download and upload (pull and push) your info from.
+Type in git remote add origin https://github.com/simon0451/ME643Project
+This is the git repository we are all working on for this project, you can change the URL for different projects in the future
+
+Type in: git pull https://github.com/simon0451/ME643Project
+this will start a download of all the stuff that we already created. It can take a few minutes to complete.
+
+You now have all the files, now try making an upload.
+Download some kind of file, like a dank meme. Put it in the directory we have been working in.
+type in: git status
+You should see your file in red - any time you modify a file or add a new one it is not tracked. We want git to track changes.
+Type in git add *
+This adds all files that are not already added. You can also add a single file by typing in: git add somefile.txt
+
+Type in: git status
+Your files should be green only.
+
+Next type in: git commit -m "put some information in the quotes about your commit"
+This commits your changes on your local machine. Think of a commit as a save point, if you fuck things up you can come back to this point later.
+
+Since we are working in a group we need to push all our commits to the online repository so everyone can see your updates and add their own.
+Let's push the commit you made to the online repository.
+Type in: git push -u origin master
+You only need to do this the first time, you can just type in git push or git pull in the future (without the -u etc.)
+Everyone else should have access to your data now, and they can use a "git pull" to get it.
+
+Always type in "git pull" without the quotes before you begin working, it will sync you up with everyone else.
+If you already made changes, do git pull then git push.
+
+Useful commands <commands>:
+<git clone [URL]> this downloads any code from github.com, depending on the URL
+<git pull [URL]> this is the same as git clone, but you use this if you are actually working on the project and not just downloading the data
+<git add *> this starts tracking changes on all files, you need to re-add files every time you change them
+<git add filename.pdf> this adds a specific file/extension - this is rarely used
+<git commit -m "useful information"> this creates a save point that you can go back to, and that teammembers can download. Put a description in the quotes
+<git push> this uploads your save point
