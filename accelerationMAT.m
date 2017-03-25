@@ -1,0 +1,1 @@
+function [theta4, theta5, rx, lac] = accelerationMAT = (r4, r5, ry, raoa, theta2)
