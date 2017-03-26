@@ -5,8 +5,6 @@ x0 = [50,1.5,.9,1];
 oldoptions = optimoptions('fsolve');
 options = optimoptions(oldoptions, 'MaxFunctionEvaluations',1000,'MaxIterations',1000);
 
-%theta2 = 0:pi/50:2*pi;
-
 x2 = arrayfun(@(a)fsolve(@(x)position_fs(x,a),x0,options),theta2, 'UniformOutput', false);
 % extract information from cells
 %x = zeros(10,4);
