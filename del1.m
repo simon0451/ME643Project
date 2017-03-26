@@ -3,7 +3,7 @@
 %25 March 2017
 
 %% Given information
-theta2 = 0; %angle of the AoA bar (radians)
+theta2 = 0:pi/100:2*pi; %angle of the AoA bar (radians)
 AoA = 7; %mm, length of member 2
 BoB = 20; %mm, length of member 5
 BC = 100; %mm, length of member 4
@@ -13,7 +13,16 @@ omega2 = 1; %RPM, rotation of member 2 from motor
 m = .45; %kg, mass of member 6
 k = 175; %N/m, spring constant of spring
 rho = 1070; %kg/m^3, density of the plastic we are using to make the parts from
-Ry = H-AoBo; %distance between point Ao and the line member 6 slides on
+ry = H-AoBo; %distance between point Ao and the line member 6 slides on
+
+%% Solving for Position, Velocity, and Acceleration
+[AC, theta4, theta5, rx] = positionMAT(theta2);
+
+plot(theta2,theta4,theta2,theta5)
+axis([0 2*pi 0 2*pi])
+legend('Theta4','Theta5')
+xlabel('Theta2')
+
 
 %% Solving Equations of Motion
 
