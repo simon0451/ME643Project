@@ -3,7 +3,7 @@
 %25 March 2017
 
 %% Given information
-theta2 = 0:pi/100:2*pi; %angle of the AoA bar (radians)
+theta2 = (0:pi/100:2*pi)'; %angle of the AoA bar (radians)
 AoA = 7; %mm, length of member 2
 BoB = 20; %mm, length of member 5
 BC = 100; %mm, length of member 4
@@ -16,17 +16,29 @@ rho = 1070; %kg/m^3, density of the plastic we are using to make the parts from
 ry = H-AoBo; %distance between point Ao and the line member 6 slides on
 
 %% Solving for Position, Velocity, and Acceleration
+% POSITION
 [AC, theta4, theta5, rx] = positionMAT(theta2);
-
 plot(theta2,theta4,theta2,theta5)
 axis([0 2*pi 0 2*pi])
 legend('Theta4','Theta5')
 xlabel('Theta2')
+%%
+% VELOCITY
+[AC_prime, omega4, omega5, rx_prime] = velocityMAT(AC, theta2, theta4, theta5);
+% check accuracy by plotting rx and its derivative
+% plot(theta2, rx,'b',theta2, rx_prime,'g')
+% grid on
+
+% ACCELERATION
+[AC_dprime, alpha4, alpha5, rx_dprime] = accelerationMAT(AC, AC_prime, theta2, theta4, theta5, omega4, omega5);
+
+plot(theta2, rx_prime,'b', theta2, rx_dprime, 'g')
+grid on
 
 
 %% Solving Equations of Motion
 
-theta2 = 0:(2*pi)/100:(2*pi); % a random range of thetas to test the function
+%theta2 = 0:(2*pi)/100:(2*pi); % a random range of thetas to test the function
 
 %Element 2
 Element2Values = Element2(theta2); %[rcm2ax rcm2ay vcm2ax vcm2ay acm2x acm2y]
