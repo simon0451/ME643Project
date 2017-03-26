@@ -17,7 +17,7 @@ Ry = H-AoBo; %distance between point Ao and the line member 6 slides on
 
 %% Solving Equations of Motion
 
-theta2 = 0:.01:(2*pi); % a random range of thetas to test the function
+theta2 = 0:(2*pi)/100:(2*pi); % a random range of thetas to test the function
 
 %Element 2
 Element2Values = Element2(theta2); %[rcm2ax rcm2ay vcm2ax vcm2ay acm2x acm2y]
