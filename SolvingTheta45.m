@@ -1,29 +1,18 @@
-ry = 102 - 45;
-rbo = 45;
-r4 = 100;
-r2 = 7;
+% theta4 = 100/360*2*pi:(130/360*2*pi-100/360*2*pi)/100:130/360*2*pi;
+% 
+% theta2 = -acos((1/98)*(-1400.*cos(theta4).^3+56.*sqrt(625.*cos(theta4).^2-150.*sqrt(1-cos(theta4).^2)-609) ...
+%     .*cos(theta4).^2+798.*sqrt(1-cos(theta4).^2).*cos(theta4)-56.*sqrt(625.*cos(theta4).^2-150.*sqrt(1-cos(theta4).^2)-609) ...
+%     + sqrt((1400.*cos(theta4).^3-56.*sqrt(625.*cos(theta4).^2-150.*sqrt(1-cos(theta4).^2)-609).*cos(theta4).^2 ...
+%     - 798.*sqrt(1-cos(theta4).^2).*cos(theta4)+56.*sqrt(625.*cos(theta4).^2-150.*sqrt(1-cos(theta4).^2) ...
+%     -609)-1400.*cos(theta4)).^2-196.*(-20000.*cos(theta4).^4+13800.*sqrt(1-cos(theta4).^2).*cos(theta4).^2 ...
+%     +32944.*cos(theta4).^2-456.*sqrt(1-cos(theta4).^2).*sqrt(625.*cos(theta4).^2-150.*sqrt(1-cos(theta4).^2)-609).*cos(theta4) ...
+%     -800.*sqrt(625.*cos(theta4).^2-150.*sqrt(1-cos(theta4).^2)-609).*cos(theta4)-2400.*sqrt(1-cos(theta4).^2) ...
+%     +800.*sqrt(625.*cos(theta4).^2-150.*sqrt(1-cos(theta4).^2)-609).*cos(theta4).^3-9744))+1400.*cos(theta4)));
+% 
+% rx = 4.*(25.*cos(theta4)-sqrt(625.*(cos(theta4)).^2-150.*sqrt(1-(cos(theta4)).^2)-609));
+% 
+% theta5 = -acos((-1/5)*sqrt(625*cos(theta4).^2 - 150*sqrt(1 - cos(theta4).^2) - 609));
 
-theta2 = 0:(2*pi)/100:2*pi;
-
-A1 = r2*cos(theta2);
-A2 = r2*sin(theta2);
-
-theta4 = pi/2:(280/360*pi - pi/2)/100:280*pi/360;
-
-top = tan(theta4).*(ry - rbo - r4.*sin(theta4));
-bottom = A1.*tan(theta4) + ry - A2;
-
-theta5 = atan(top./bottom);
-
-figure;
-surf([theta2;theta4;theta5]);
-xlabel('Theta2');
-ylabel('Theta4');
-zlabel('Theta5');
-
-rx = ry./(tan(theta2) + tan(theta4));
-figure;
-surf([theta2;theta4;rx]);
-xlabel('Theta2');
-ylabel('Theta4');
-zlabel('Rx');
+syms theta2 theta4 theta5 rx f
+eqns = [7*cos(theta2)+100*f*cos(theta4)==rx; 100*cos(theta4)+20*cos(theta5)==rx;...
+    7*sin(theta2)+100*f*sin(theta4)==57; 100*sin(theta4)+20*sin(theta5)==12];
