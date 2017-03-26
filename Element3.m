@@ -1,7 +1,6 @@
-function F=eSolve(x)
-%Equation solver - solves systems of non-linear equations
-
-theta2 = 0; %angle of the AoA bar (radians)
+function [output] = Element3(theta2)
+%this funciton outputs position (r), velocity (v), acceleration(a)
+%givens:
 AoA = 7; %mm, length of member 2
 BoB = 20; %mm, length of member 5
 BC = 100; %mm, length of member 4
@@ -13,8 +12,16 @@ k = 175; %N/m, spring constant of spring
 rho = 1070; %kg/m^3, density of the plastic we are using to make the parts from
 Ry = H-AoBo; %distance between point Ao and the line member 6 slides on
 
-F = [AoA*cos(theta2)+x(1)*cos(x(2))-x(4);
-    AoA*sin(theta2)+x(1)*sin(x(2))-Ry;
-    BoB*cos(x(3))+BC*cos(x(2))-x(4);
-    AoBo+BoB*sin(x(3))+BC*sin(x(2))-Ry;];
+rax = AoA.*cos(theta2);
+ray = AoA.*sin(theta2);
+
+vax = -1.*(AoA.*sin(theta2).*omega2);
+vay = AoA.*cos(theta2).*omega2;
+
+aax = -1.*(AoA.*(omega2.^2).*cos(theta2));
+aay = -1*(AoA.*(omega2.^2).*sin(theta2));
+
+
+output = [rax;ray;vax;vay;aax;aay];
+output = output';
 end
