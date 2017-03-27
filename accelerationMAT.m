@@ -13,7 +13,7 @@ for i = 1:length(theta2)
         0, -r4*sin(theta4(i)), -r5*sin(theta5(i)), 1;
         0, r4*cos(theta4(i)), r5*cos(theta5(i)), 0];
     % RHS Coefficient Matrix
-    B = [AoA*w2^2*cos(theta2(i)) + 2*AC_t(i)*w4(i)*sin(theta4(i)) + AC(i)*w4(i)*(cos(theta4(i)));
+    B = [AoA*w2^2*cos(theta2(i)) + 2*AC_t(i)*w4(i)*sin(theta4(i)) + AC(i)*w4(i)^2*(cos(theta4(i)));
         AoA*w2^2*sin(theta2(i)) - 2*AC_t(i)*w4(i)*cos(theta4(i)) + AC(i)*w4(i)^2*(sin(theta4(i)));
         w5(i)^2*r5*cos(theta5(i)) + w4(i)^2*r4*cos(theta4(i));
         w5(i)^2*r5*sin(theta5(i)) + w4(i)^2*r4*sin(theta4(i))];
