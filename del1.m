@@ -34,8 +34,13 @@ grid on
 
 % ACCELERATION
 [AC_dprime, alpha4, alpha5, rx_dprime] = accelerationMAT(AC, AC_prime, theta2, theta4, theta5, omega4, omega5);
+<<<<<<< HEAD
 figure;
 plot(theta2, rx_prime,'b', theta2, rx_dprime, 'g')
+=======
+
+plot(theta2, rx_prime,'b', theta2, rx_dprime, 'm')
+>>>>>>> c83ef81b3ad3838571aec002d76da011770d23fb
 grid on
 
 
@@ -60,6 +65,7 @@ Element5Values = Element5(theta5,omega5,alpha5);
 %Element 6
 %requires theta5, theta4, omega5, omega4, alpha5, and alpha4 to run,
 %otherwise ready to go
+<<<<<<< HEAD
 Element6Values = Element6(theta5,theta4,omega4,omega5,alpha4,alpha5);
 
 figure;
@@ -69,6 +75,11 @@ plot(Element3Values(1,:),Element3Values(2,:));
 plot(Element4Values(1,:),Element4Values(2,:));
 plot(Element5Values(1,:),Element5Values(2,:));
 plot(Element6Values(1,:),Element6Values(2,:));
+=======
+
+
+plot(Element2Values(1,:), Element2Values(2,:) ,Element3Values(1,:),Element3Values(2,:))
+>>>>>>> c83ef81b3ad3838571aec002d76da011770d23fb
 title('Position (mm)')
 xlabel('X Displacement (mm)')
 ylabel('Y Displacement (mm)')
