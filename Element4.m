@@ -25,7 +25,7 @@ vcm4y = AoA.*omega2.*cos(theta2)+.5.*BC.*cos(theta4).*omega4;
 acm4x = -AoA.*(omega2.^2).*cos(theta2)-.5.*BC.*(alpha4.*cos(theta4)+(omega4.^2).*cos(theta4));
 acm4y = -AoA.*(omega2.^2).*sin(theta2)+.5.*BC.*(alpha4.*sin(theta4)-(omega4.^2).*sin(theta4));
 
-output = [rcm4x; rcm4y; vcm4x; vcm4y; acm4x; acm4y];
+output = [rcm4x rcm4y vcm4x vcm4y acm4x acm4y];
 output = output';
 
 

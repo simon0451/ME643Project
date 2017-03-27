@@ -23,7 +23,7 @@ acm2y = -.5.*AoA.*(omega2.^2).*sin(theta2);
 
 
 
-output = [rcm2ax; rcm2ay; vcm2ax; vcm2ay; acm2x; acm2y;];
+output = [rcm2ax rcm2ay vcm2ax vcm2ay acm2x acm2y];
 output = output';
 
 

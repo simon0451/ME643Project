@@ -32,7 +32,7 @@ xlabel('Theta2')
 % ACCELERATION
 [AC_dprime, alpha4, alpha5, rx_dprime] = accelerationMAT(AC, AC_prime, theta2, theta4, theta5, omega4, omega5);
 
-plot(theta2, rx_prime,'b', theta2, rx_dprime, 'g')
+plot(theta2, rx_prime,'b', theta2, rx_dprime, 'm')
 grid on
 
 
@@ -57,7 +57,7 @@ Element3Values = Element3(theta2); %[rax ray vax vay aax aay]
 %otherwise ready to go
 
 
-plot(Element2Values(:,1),Element2Values(:,2),Element3Values(:,1),Element3Values(:,2))
+plot(Element2Values(1,:), Element2Values(2,:) ,Element3Values(1,:),Element3Values(2,:))
 title('Position (mm)')
 xlabel('X Displacement (mm)')
 ylabel('Y Displacement (mm)')

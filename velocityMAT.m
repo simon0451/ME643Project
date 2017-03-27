@@ -19,6 +19,7 @@ for i = 1:length(theta2)
     % Solution Matrix, x
     % x = [AC', w4, w5, Rx']
     x(i,:) = linsolve(A,B);
+%     x(i,:) = A\B;
 end
 AC_prime = x(:,1);
 omega4 = x(:,2);

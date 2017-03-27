@@ -20,6 +20,7 @@ for i = 1:length(theta2)
     % Solution Matrix, x
     % x = AC_tt, a4, a5, Rx_tt
     x(i,:) = linsolve(A,B);
+%     x(i,:) = A\B;
 end
 AC_dprime = x(:,1);
 alpha4 = x(:,2);
