@@ -37,15 +37,9 @@ grid on
 figure;
 plot(theta2, rx_prime,'b', theta2, rx_dprime, 'g')
 
-<<<<<<< HEAD
 plot(theta2, rx_prime,'b', theta2, rx_dprime, 'm', [2.073 2.073] , [-20 20],'k')
-=======
+
 plot(theta2, rx_prime,'b', theta2, rx_dprime, 'm')
-<<<<<<< HEAD
->>>>>>> c83ef81b3ad3838571aec002d76da011770d23fb
->>>>>>> a50d97d15641ec18376a94f15ecb4ef19d0f74de
-=======
->>>>>>> 1ce142cf844fdab13b02597fa878287812fbee04
 grid on
 
 
