@@ -11,6 +11,7 @@ x2 = arrayfun(@(a)fsolve(@(x)position_fs(x,a),x0,options),theta2, 'UniformOutput
 for i = 1:length(theta2)
     x(i,:) = x2{i};
 end
+
 AC = x(:,1);
 theta4 = x(:,2);
 theta5 = x(:,3);

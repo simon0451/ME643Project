@@ -1,4 +1,4 @@
-function [output] = Element4(theta2)
+function [output] = Element4(theta2,theta4,omega4,alpha4)
 %this funciton outputs position (r), velocity (v), acceleration(a)
 %givens:
 AoA = 7; %mm, length of member 2
@@ -12,9 +12,9 @@ k = 175; %N/m, spring constant of spring
 rho = 1070; %kg/m^3, density of the plastic we are using to make the parts from
 Ry = H-AoBo; %distance between point Ao and the line member 6 slides on
 
-theta4 = 0; %???????? find theta4 in terms of something we know
-omega4 = 0; %????????? find omega4 in terms of something we know
-alpha4 = 0; %?? find alpha4 in terms of something we know
+% theta4 = 0; %???????? find theta4 in terms of something we know
+% omega4 = 0; %????????? find omega4 in terms of something we know
+% alpha4 = 0; %?? find alpha4 in terms of something we know
 
 rcm4x = AoA.*cos(theta2)+.5.*BC.*cos(theta4);
 rcm4y = AoA.*sin(theta2)+.5.*BC.*sin(theta4);
