@@ -12,12 +12,15 @@ k = 175; %N/m, spring constant of spring
 rho = 1070; %kg/m^3, density of the plastic we are using to make the parts from
 Ry = H-AoBo; %distance between point Ao and the line member 6 slides on
 
+%position
 rcm2ax = .5.*AoA.*cos(theta2);
 rcm2ay = .5.*AoA.*sin(theta2);
 
+%velocity
 vcm2ax = -.5.*sin(theta2)*omega2;
 vcm2ay = .5.*cos(theta2)*omega2;
 
+%acceleration
 acm2x = -.5.*AoA.*(omega2.^2).*cos(theta2);
 acm2y = -.5.*AoA.*(omega2.^2).*sin(theta2);
 
