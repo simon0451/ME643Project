@@ -18,6 +18,8 @@ ry = H-AoBo; %distance between point Ao and the line member 6 slides on
 %% Solving for Position, Velocity, and Acceleration
 % POSITION
 [AC, theta4, theta5, rx] = positionMAT(theta2);
+
+figure;
 plot(theta2,theta4,theta2,theta5)
 axis([0 2*pi 0 2*pi])
 legend('Theta4','Theta5')
@@ -26,12 +28,13 @@ xlabel('Theta2')
 % VELOCITY
 [AC_prime, omega4, omega5, rx_prime] = velocityMAT(AC, theta2, theta4, theta5);
 % check accuracy by plotting rx and its derivative
-% plot(theta2, rx,'b',theta2, rx_prime,'g')
-% grid on
+figure;
+plot(theta2, rx,'b',theta2, rx_prime,'g')
+grid on
 
 % ACCELERATION
 [AC_dprime, alpha4, alpha5, rx_dprime] = accelerationMAT(AC, AC_prime, theta2, theta4, theta5, omega4, omega5);
-
+figure;
 plot(theta2, rx_prime,'b', theta2, rx_dprime, 'g')
 grid on
 
@@ -48,19 +51,27 @@ Element3Values = Element3(theta2); %[rax ray vax vay aax aay]
 
 %Element 4
 %requires theta4, omega4, and alpha4 to run - code exists otherwise
+Element4Values = Element4(theta2,theta4,omega4,alpha4); %[rcm4x rcm4y vcm4x vcm4y acm4x acm4y]
 
 %Element 5
 %requries thetaa5, omega5, and alpha5 to run - code exists otherwise
+Element5Values = Element5(theta5,omega5,alpha5);
 
 %Element 6
 %requires theta5, theta4, omega5, omega4, alpha5, and alpha4 to run,
 %otherwise ready to go
+Element6Values = Element6(theta5,theta4,omega4,omega5,alpha4,alpha5);
 
-
-plot(Element2Values(:,1),Element2Values(:,2),Element3Values(:,1),Element3Values(:,2))
+figure;
+plot(Element2Values(1,:),Element2Values(2,:));
+hold on;
+plot(Element3Values(1,:),Element3Values(2,:));
+plot(Element4Values(1,:),Element4Values(2,:));
+plot(Element5Values(1,:),Element5Values(2,:));
+plot(Element6Values(1,:),Element6Values(2,:));
 title('Position (mm)')
 xlabel('X Displacement (mm)')
 ylabel('Y Displacement (mm)')
-
-
-
+legend('Element 2','Element 3','Element 4','Element 5','Element 6');
+ylim([-8 106]);
+xlim([-70 44]);

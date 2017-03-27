@@ -22,6 +22,6 @@ aax = -1.*(AoA.*(omega2.^2).*cos(theta2));
 aay = -1*(AoA.*(omega2.^2).*sin(theta2));
 
 
-output = [rax;ray;vax;vay;aax;aay];
+output = [rax ray vax vay aax aay];
 output = output';
 end

@@ -21,11 +21,12 @@ vcm2ay = .5.*cos(theta2)*omega2;
 acm2x = -.5.*AoA.*(omega2.^2).*cos(theta2);
 acm2y = -.5.*AoA.*(omega2.^2).*sin(theta2);
 
+size(rcm2ax)
 
-
-output = [rcm2ax; rcm2ay; vcm2ax; vcm2ay; acm2x; acm2y;];
+output = [rcm2ax rcm2ay vcm2ax vcm2ay acm2x acm2y];
+size(output)
 output = output';
-
+size(output)
 
 
 end
