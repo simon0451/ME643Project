@@ -66,19 +66,27 @@ Element5Values = Element5(theta5,omega5,alpha5);
 %otherwise ready to go
 Element6Values = Element6(theta5,theta4,omega4,omega5,alpha4,alpha5);
 
+% Plotting graph 1
 figure;
-plot(Element2Values(1,:),Element2Values(2,:));
+plot(Element2Values(1,:),Element2Values(2,:),'Linewidth',2);
 hold on;
-plot(Element3Values(1,:),Element3Values(2,:));
-plot(Element4Values(1,:),Element4Values(2,:));
-plot(Element5Values(1,:),Element5Values(2,:));
-plot(Element6Values(1,:),Element6Values(2,:));
-
-
-plot(Element2Values(1,:), Element2Values(2,:) ,Element3Values(1,:),Element3Values(2,:))
-title('Position (mm)')
+% plot(Element3Values(1,:),Element3Values(2,:));
+% plot(Element4Values(1,:),Element4Values(2,:));
+plot(Element5Values(1,:),Element5Values(2,:)-AoBo,'Linewidth',2);
+plot(Element6Values(1,:),Element6Values(2,:)-AoBo,'Linewidth',2);
+title('Position of Points A,B,C')
 xlabel('X Displacement (mm)')
 ylabel('Y Displacement (mm)')
-legend('Element 2','Element 3','Element 4','Element 5','Element 6');
-ylim([-8 106]);
-xlim([-70 44]);
+legend('Point A','Point B','Point C');
+ylim([-50 60]);
+xlim([-70 30]);
+grid on;
+
+%% Graph 2
+figure;
+plot(theta2*180/pi,Element6Values(1,:));
+grid on;
+title('X-position of Point C versus Crank Angle');
+xlabel('Crank Angle (°C)');
+ylabel('X-position (mm)');
+xlim([0 360]);
