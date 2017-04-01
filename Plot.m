@@ -1,10 +1,14 @@
+%% Plot Header
+
+%this script will generate plots
+
 %% A script to test 3D plotting
 
 %making up some random variables
-% x = [-3:.3:3]; %some made up x array
-% y = [-3:.3:3]; %some made up y array
+x = [-3:.3:3]; %some made up x array
+y = [-3:.3:3]; %some made up y array
 
-% [xx,yy] = meshgrid(x,y);
+[xx,yy] = meshgrid(x,y);
 % what this does is makes a column vector z into an nxn matrix so [1 2 3] becomes
 % [1 2 3; 1 2 3; 1 2 3;]
 % it does the same thing to the y values
@@ -12,10 +16,14 @@
 %you need to make a meshgrid before plotting a surface plot - you cannot
 %simply give it x,y,z coordinate points
 
-% zz=xx.^2-yy.^2; %the z term MUST relate the x terms to the y terms
+zz=xx.^2-yy.^2; %the z term MUST relate the x terms to the y terms
 
-% figure
-% surf(xx,yy,zz)
+figure
+surf(xx,yy,zz)
+title('Some Random Data')
+xlabel('Xdata')
+ylabel('Ydata')
+zlabel('Zdata')
 
 %% Deliverable h
 %axial force
@@ -28,14 +36,22 @@
 
 %axes: member length (x), Crank angle (0 - 2pi) (y), axial force (z)
 
-x = [.1:.1:3]; %this is a placeholder vector representing the length of the members 2, 4, and 5 (seperate plots)
-y = [0:pi/100:2*pi]; %this is a placeholder vector representing the 
+xh = [.1:.1:3]; %this is a placeholder vector representing the length of the members 2, 4, and 5 (seperate plots)
+yh = [0:pi/100:2*pi]; %this is a placeholder vector representing the 
 
-[xxh,yyh] = meshgrid(x,y); %making the inputs into a grid so they can be plotted
+[xxh,yyh] = meshgrid(xh,yh); %making the inputs into a grid so they can be plotted
 
-zz = 0; %this is the relationship between [xx,yy] and zz - so some function of 
-MAXaxial = max(zz); %we are interested in finding the maximum force value
-MINaxial = min(zz); %we are also interested in finding the minimum force value
+zzh = 0; %this is the relationship between [xx,yy] and zz - so some function of 
+MAXaxial = max(zzh); %we are interested in finding the maximum force value
+MINaxial = min(zzh); %we are also interested in finding the minimum force value
+
+figure
+surf(xxh,yyh,zzh)
+title('Crank Angle and Member Length with respect to Axial Force')
+xlabel('Member Length (m)')
+ylabel('Crank Angle (rad.)')
+zlabel('Axial Force (N)')
+
 
 %% Deliverable i
 %same thing as deliberable h, but this is with shear force instead of axial
@@ -43,15 +59,21 @@ MINaxial = min(zz); %we are also interested in finding the minimum force value
 
 %axes: member length (x), Crank angle (0 - 2pi) (y), shear force (z)
 
-x = [.1:.1:3]; %this is a placeholder vector representing the length of the members 2, 4, and 5 (seperate plots)
-y = [0:pi/100:2*pi]; %this is a placeholder vector representing the 
+xi = [.1:.1:3]; %this is a placeholder vector representing the length of the members 2, 4, and 5 (seperate plots)
+yi = [0:pi/100:2*pi]; %this is a placeholder vector representing the 
 
-[xxi,yyi] = meshgrid(x,y); %making the inputs into a grid so they can be plotted
+[xxi,yyi] = meshgrid(xi,yi); %making the inputs into a grid so they can be plotted
 
-zz = 0; %this is the relationship between [xx,yy] and zz - so some function of 
-MAXshear = max(zz); %we are interested in finding the maximum force value
-MINshear = min(zz); %we are also interested in finding the minimum force value
+zzi = 0; %this is the relationship between [xx,yy] and zz - so some function of 
+MAXshear = max(zzi); %we are interested in finding the maximum force value
+MINshear = min(zzi); %we are also interested in finding the minimum force value
 
+figure
+surf(xxi,yyi,zzi)
+title('Crank Angle and Member Length with respect to Shear Force')
+xlabel('Member Length (m)')
+ylabel('Crank Angle (rad.)')
+zlabel('Shear Force (N)')
 %% Deliberable j
 % internal bending moment
 
@@ -60,14 +82,19 @@ MINshear = min(zz); %we are also interested in finding the minimum force value
 
 %axes: member length (x), Crank angle (0 - 2pi) (y), internal bending moment (z)
 
-x = [.1:.1:3]; %this is a placeholder vector representing the length of the members 2, 4, and 5 (seperate plots)
-y = [0:pi/100:2*pi]; %this is a placeholder vector representing the 
+xj = [.1:.1:3]; %this is a placeholder vector representing the length of the members 2, 4, and 5 (seperate plots)
+yj = [0:pi/100:2*pi]; %this is a placeholder vector representing the 
 
-[xxj,yyj] = meshgrid(x,y); %making the inputs into a grid so they can be plotted
+[xxj,yyj] = meshgrid(xj,yj); %making the inputs into a grid so they can be plotted
 
-zz = 0; %this is the relationship between [xx,yy] and zz - so some function of 
-MAXmoment = max(zz); %we are interested in finding the maximum force value
-MINmoment = min(zz); %we are also interested in finding the minimum force 
+zzj = 0; %this is the relationship between [xx,yy] and zz - so some function of 
+MAXmoment = max(zzj); %we are interested in finding the maximum force value
+MINmoment = min(zzj); %we are also interested in finding the minimum force 
 
-
+figure
+surf(xxj,yyj,zzj
+title('Crank Angle and Member Length with respect to Internal Bending Moment')
+xlabel('Member Length (m)')
+ylabel('Crank Angle (rad.)')
+zlabel('Bending Moment (N*m)')
 
