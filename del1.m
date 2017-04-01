@@ -24,6 +24,7 @@ plot(theta2,theta4,theta2,theta5)
 axis([0 2*pi 0 2*pi])
 legend('Theta4','Theta5')
 xlabel('Theta2')
+grid on
 %%
 % VELOCITY
 [AC_prime, omega4, omega5, rx_prime] = velocityMAT(AC, theta2, theta4, theta5);
@@ -64,7 +65,7 @@ Element5Values = Element5(theta5,omega5,alpha5);
 %Element 6
 %requires theta5, theta4, omega5, omega4, alpha5, and alpha4 to run,
 %otherwise ready to go
-Element6Values = Element6(theta5,theta4,omega4,omega5,alpha4,alpha5);
+Element6Values = Element6(rx, rx_prime, rx_dprime);
 
 % Plotting graph 1
 figure;
@@ -73,7 +74,7 @@ hold on;
 % plot(Element3Values(1,:),Element3Values(2,:));
 % plot(Element4Values(1,:),Element4Values(2,:));
 plot(Element5Values(1,:),Element5Values(2,:)-AoBo,'Linewidth',2);
-plot(Element6Values(1,:),Element6Values(2,:)-AoBo,'Linewidth',2);
+plot(-1*Element6Values(1,:),Element6Values(2,:),'Linewidth',2);     % We have a -1 in this b/c this accounts for the negative direction of point C
 title('Position of Points A,B,C')
 xlabel('X Displacement (mm)')
 ylabel('Y Displacement (mm)')

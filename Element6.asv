@@ -1,4 +1,4 @@
-function [output] = Element6(rx, rx_prime, rx_dprime)
+function [output] = Element6()
 % The original inputs were:
 % (theta5,theta4,omega4,omega5,alpha4,alpha5)
 %this funciton outputs position (r), velocity (v), acceleration(a)
@@ -38,13 +38,13 @@ Ry = H-AoBo; %distance between point Ao and the line member 6 slides on
 % acx = -BoB.*(alpha5.*sin(theta5)-(omega5.^2).*cos(theta5))-BC.*(alpha4.*sin(theta4)+(omega4.^2).*cos(theta4));
 % acy = BoB.*(alpha5.*cos(theta5)-(omega5.^2).*sin(theta5))-BC.*(alpha4.*cos(theta4)-(omega4.^2).*sin(theta4));
 
-rcx = rx;
+rcx = 
 
-vcx = rx_prime;
+vcx = 
 
-acx = rx_dprime;
+acx = 
 
-output = [rcx (H - AoBo)*ones(201,1) vcx zeros(201,1) acx zeros(201,1)];
+output = [];
 % Original: rcx rcy vcx vcy acx acy
 output = output';
 

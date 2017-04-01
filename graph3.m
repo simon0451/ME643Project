@@ -1,5 +1,5 @@
 % Graph 3, part d.
-function [] = graph3(theta2, theta5,theta4,omega4,omega5)
+function [] = graph3(Element6Values)
 
 AoA = 7; %mm, length of member 2
 BoB = 20; %mm, length of member 5
@@ -12,9 +12,8 @@ k = 175; %N/m, spring constant of spring
 rho = 1070; %kg/m^3, density of the plastic we are using to make the parts from
 Ry = H-AoBo; %distance between point Ao and the line member 6 slides on
 
-vcx = -BoB.*sin(theta5).*omega5-BC.*omega4.*sin(theta4);
 theta2_deg = theta2*180/pi;
-plot(theta2_deg, vcx,'linewidth',2)
+plot(theta2_deg, Element6Values(3,:),'linewidth',2)
 xlabel('Crank Angle, 0^o - 360^o')
 ylabel('Linear Velocity (m/s)')
 title('x-Component of the Linear Velocity of Point C')
