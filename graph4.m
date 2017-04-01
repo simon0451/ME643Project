@@ -1,7 +1,7 @@
 % This will beat sydneys slow preformance and I (reed) will plot graph 4
 % faster
 function [] = graph4(Element2Values,Element4Values, ...
-    Element5Values,Element6Values)
+    Element5Values,Element6Values, theta2)
 
 AoA = 7; %mm, length of member 2
 BoB = 20; %mm, length of member 5

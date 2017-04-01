@@ -91,3 +91,12 @@ title('X-position of Point C versus Crank Angle');
 xlabel('Crank Angle (°C)');
 ylabel('X-position (mm)');
 xlim([0 360]);
+
+%% Graph 3
+figure;
+graph3(Element6Values, theta2);
+
+%% Graph 4
+figure;
+graph4(Element2Values,Element4Values, ...
+    Element5Values,Element6Values, theta2);

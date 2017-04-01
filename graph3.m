@@ -1,5 +1,5 @@
 % Graph 3, part d.
-function [] = graph3(Element6Values)
+function [] = graph3(Element6Values, theta2)
 
 AoA = 7; %mm, length of member 2
 BoB = 20; %mm, length of member 5
@@ -17,5 +17,5 @@ plot(theta2_deg, Element6Values(3,:),'linewidth',2)
 xlabel('Crank Angle, 0^o - 360^o')
 ylabel('Linear Velocity (m/s)')
 title('x-Component of the Linear Velocity of Point C')
-axis([0 360 -20 25])
+axis([0 360 -25 25])
 grid on
