@@ -167,7 +167,7 @@ xlabel('Crank Angle')
 ylabel('Force (N)')
 title('Reaction Forces in Joints')
 set(gca,'xtick',[0 pi/2 pi 3*pi/2 2*pi])
-set(gca,'xticklabel',{'0';'2/\pi';'\pi';'3\pi/2';'2\pi'})
+set(gca,'xticklabel',{'0';'pi/\2';'\pi';'3\pi/2';'2\pi'})
 xlim([0 2*pi])
 legend('location','northwest','F_{R_{Ao}}','F_{R_A}',...
 'F_{R_B}','F_{R_{Bo}}','F_{R_C}')
