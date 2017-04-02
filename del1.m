@@ -88,7 +88,7 @@ figure;
 plot(theta2*180/pi,Element6Values(1,:));
 grid on;
 title('X-position of Point C versus Crank Angle');
-xlabel('Crank Angle (°C)');
+xlabel('Crank Angle (deg°)');
 ylabel('X-position (mm)');
 xlim([0 360]);
 
@@ -100,3 +100,12 @@ graph3(Element6Values, theta2);
 figure;
 graph4(Element2Values,Element4Values, ...
     Element5Values,Element6Values, theta2);
+
+%% Solving for Forces
+
+% Plots and returns reactive forces at the pins
+figure
+[F_RC,F_RB,F_RBo,F_RA,F_RAo,M2] = ...
+    pinforces(Element6Values(5,:),...
+    rx,theta2,theta4,theta5,AC);
+
