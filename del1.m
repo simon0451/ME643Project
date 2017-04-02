@@ -101,11 +101,27 @@ figure;
 graph4(Element2Values,Element4Values, ...
     Element5Values,Element6Values, theta2);
 
-%% Solving for Forces
+%% Solving for Forces and plotting
 
-% Plots and returns reactive forces at the pins
+% Plots and returns reactive forces at the pins, and moment about part 2
 figure
 [F_RC,F_RB,F_RBo,F_RA,F_RAo,M2] = ...
     pinforces(Element6Values(5,:),...
     rx,theta2,theta4,theta5,AC);
+
+% Calculate Shear, axial and bending moments 
+
+[axialF,shearF,moment,x2,x4,x5] = AVMcalc(F_RC,F_RB,F_RBo,F_RA,F_RAo,M2,Element6Values(5,:),rx,theta2,theta4,theta5,AC);
+
+% 3D plots h,i,j
+% Figure are created in function
+
+AVMplots1(x2,x4,x5,axialF,theta2,theta4,theta5) % h Axial force plot
+
+AVMplots2(x2,x4,x5,shearF,theta2,theta4,theta5) % i Shear Force plot
+
+AVMplots3(x2,x4,x5,moment,theta2,theta4,theta5) % j Bending moment plot
+
+
+
 
