@@ -1,4 +1,4 @@
-function [] = AVMplots1(x2,x4,x5,zh,theta2,theta4,theta5)
+function [MAXaxial,MINaxial] = AVMplots1(x2,x4,x5,zh,theta2,theta4,theta5)
 
 %% Deliverable h,i,j
 %axial force
@@ -18,14 +18,14 @@ yh = [theta2';theta4';theta5']; %this is a placeholder vector representing the
 for i=1:3
 [xxh,yyh] = meshgrid(xh(i,:),yh(i,:)); %making the inputs into a grid so they can be plotted
 zzh = meshgrid(zh(i,:)); %this is the relationship between [xx,yy] and zz - so some function of 
-MAXaxial = max(zzh(i,:)); %we are interested in finding the maximum force value
-MINaxial = min(zzh(i,:)); %we are also interested in finding the minimum force value
+MAXaxial(i) = max(zzh(i,:)); %we are interested in finding the maximum force value
+MINaxial(i) = min(zzh(i,:)); %we are also interested in finding the minimum force value
+partnum = [sprintf('Part 2');sprintf('Part 4');sprintf('Part 5')];
 
 figure 
 surf(xxh,yyh,zzh,'edgecolor','none')
-
-title('Crank Angle and Member Length with respect to Bending Moment')
-xlabel('Member Length (m)')
+title([partnum(i,:),' Crank Angle and Member Length with respect to Bending Moment'])
+xlabel('Member Length (mm)')
 ylabel('Crank Angle (rad.)')
 zlabel('Moment (N/mm)')
 
