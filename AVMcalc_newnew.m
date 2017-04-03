@@ -113,12 +113,12 @@ for i=1:length(x2)
     for j=1:length(theta4) 
         
        if x4(i) < (BC-AC(i))
-           Mom4(j,i) = (-RBx(j)*sin(pi-theta4(j))+RBy(j)*sin(theta4(j)-pi/2))*x4(i); % Shear force
+           Mom4(j,i) = (-RBx(j)*sin(pi-theta4(j))+RBy(j)*sin(theta4(j)-pi/2))*x4(i);
        end        
         
        if x4(i) >= (BC-AC(i))
             Mom4(j,i) = (-RBx(j)*sin(pi-theta4(j))+RBy(j)*sin(theta4(j)-pi/2))...
-                *x4(i)+R43(j)*(x4(i)-(BC-AC(i))); % Shear force
+                *x4(i)+R43(j)*(x4(i)-(BC-AC(i)));
        end
 
     end
@@ -130,6 +130,7 @@ title('Bending Moment Member 4')
 xlabel('Length (mm)')
 ylabel('Crank Angle (Deg)')
 zlabel('Bending Moment (N-mm)')
+axis([0 100 0 360 -2000 500])
 
 %% Part 5
 
@@ -176,6 +177,7 @@ title('Bending Moment Member 5')
 xlabel('Length (mm)')
 ylabel('Crank Angle (Deg)')
 zlabel('Bending Moment (N-mm)')
+axis([0 20 0 360 -400 100])
 
 %% Place Values in one matrix
 
