@@ -1,3 +1,5 @@
+%function [] = ThreeDplots(x2,x4,x5,axialF,shearF,moment)
+
 %% Plot Header
 
 %this script will generate plots
@@ -39,7 +41,7 @@ zlabel('Zdata')
 xh = [.1:.1:3]; %this is a placeholder vector representing the length of the members 2, 4, and 5 (seperate plots)
 yh = [0:pi/100:2*pi]; %this is a placeholder vector representing the 
 
-[xxh,yyh] = meshgrid(x,y); %making the inputs into a grid so they can be plotted
+[xxh,yyh] = meshgrid(xh,yh); %making the inputs into a grid so they can be plotted
 
 zzh = 0; %this is the relationship between [xx,yy] and zz - so some function of 
 MAXaxial = max(zzh); %we are interested in finding the maximum force value
@@ -62,7 +64,7 @@ zlabel('Axial Force (N)')
 xi = [.1:.1:3]; %this is a placeholder vector representing the length of the members 2, 4, and 5 (seperate plots)
 yi = [0:pi/100:2*pi]; %this is a placeholder vector representing the 
 
-[xxi,yyi] = meshgrid(x,y); %making the inputs into a grid so they can be plotted
+[xxi,yyi] = meshgrid(xi,yi); %making the inputs into a grid so they can be plotted
 
 zzi = 0; %this is the relationship between [xx,yy] and zz - so some function of 
 MAXshear = max(zzi); %we are interested in finding the maximum force value
@@ -70,10 +72,10 @@ MINshear = min(zzi); %we are also interested in finding the minimum force value
 
 figure
 surf(xxi,yyi,zzi)
-title('Crank Angle and Member Length with respect to Axial Force')
+title('Crank Angle and Member Length with respect to Shear Force')
 xlabel('Member Length (m)')
 ylabel('Crank Angle (rad.)')
-zlabel('Axial Force (N)')
+zlabel('Shear Force (N)')
 %% Deliberable j
 % internal bending moment
 
@@ -87,9 +89,14 @@ yj = [0:pi/100:2*pi]; %this is a placeholder vector representing the
 
 [xxj,yyj] = meshgrid(xj,yj); %making the inputs into a grid so they can be plotted
 
-zz = 0; %this is the relationship between [xx,yy] and zz - so some function of 
-MAXmoment = max(zz); %we are interested in finding the maximum force value
-MINmoment = min(zz); %we are also interested in finding the minimum force 
+zzj = 0; %this is the relationship between [xx,yy] and zz - so some function of 
+MAXmoment = max(zzj); %we are interested in finding the maximum force value
+MINmoment = min(zzj); %we are also interested in finding the minimum force 
 
-
+figure
+surf(xxj,yyj,zzj
+title('Crank Angle and Member Length with respect to Internal Bending Moment')
+xlabel('Member Length (m)')
+ylabel('Crank Angle (rad.)')
+zlabel('Bending Moment (N*m)')
 

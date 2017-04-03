@@ -17,6 +17,9 @@ yh = [theta2';theta4';theta5']; %this is a placeholder vector representing the
 
 for i=1:3
 [xxh,yyh] = meshgrid(xh(i,:),yh(i,:)); %making the inputs into a grid so they can be plotted
+yyh = meshgrid(yh(i,:));
+xxh = meshgrid(xh(i,:));
+% zzh = 
 zzh = meshgrid(zh(i,:)); %this is the relationship between [xx,yy] and zz - so some function of 
 MAXaxial(i) = max(zzh(i,:)); %we are interested in finding the maximum force value
 MINaxial(i) = min(zzh(i,:)); %we are also interested in finding the minimum force value

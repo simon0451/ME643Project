@@ -136,9 +136,9 @@ b6y = 0;
 
 F_k1(i) = rx(i)*k_mm;
 
-b6x(i) = -m6*a6x(i)+F_k1(i);
+F_64x(i) = -m6*a6x(i)+F_k1(i);
 
-F_64(i) = b6x(i)/cos(theta4(i));
+F_64(i) = F_64x(i)/cos(theta4(i));
 
 R_C(i) = -F_64(i)*sin(theta4(i));
 
@@ -167,7 +167,7 @@ xlabel('Crank Angle')
 ylabel('Force (N)')
 title('Reaction Forces in Joints')
 set(gca,'xtick',[0 pi/2 pi 3*pi/2 2*pi])
-set(gca,'xticklabel',{'0';'pi/\2';'\pi';'3\pi/2';'2\pi'})
+set(gca,'xticklabel',{'0';'2/\pi';'\pi';'3\pi/2';'2\pi'})
 xlim([0 2*pi])
 legend('location','northwest','F_{R_{Ao}}','F_{R_A}',...
 'F_{R_B}','F_{R_{Bo}}','F_{R_C}')

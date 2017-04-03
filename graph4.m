@@ -16,19 +16,20 @@ Ry = H-AoBo; %distance between point Ao and the line member 6 slides on
 
 % Element 2
 a2_mag = sqrt(Element2Values(5,:).^2 + Element2Values(6,:).^2);
-plot(theta2, a2_mag,'r')
+plot(theta2.*180./pi, a2_mag,'r')
 hold on
 
 % Element 4
 a4_mag = sqrt(Element4Values(5,:).^2 + Element4Values(6,:).^2);
-plot(theta2, a4_mag,'d')
+plot(theta2.*180./pi, a4_mag,'d')
 
 % Element 5
 a5_mag = sqrt(Element5Values(5,:).^2 + Element5Values(6,:).^2);
-plot(theta2, a5_mag,'--')
+plot(theta2.*180./pi, a5_mag,'--')
 
 % Element 6
 a6_mag = sqrt(Element6Values(5,:).^2);
-plot(theta2, a6_mag,'m:')
+plot(theta2.*180./pi, a6_mag,'m:')
+axis([0 360 0 10])
 legend('location','best','Member 2 (A_oA)','Member 4 (BC)','Member 5 (B_oB)', ...
     'Member 6 (C)')
