@@ -1,7 +1,7 @@
 %% HEADER
 %Machine Design project
 %25 March 2017
-
+close all; clear all;
 %% Given information
 theta2 = (0:pi/100:2*pi)'; %angle of the AoA bar (radians)
 AoA = 7; %mm, length of member 2
@@ -88,7 +88,7 @@ figure;
 plot(theta2*180/pi,Element6Values(1,:));
 grid on;
 title('X-position of Point C versus Crank Angle');
-xlabel('Crank Angle (°C)');
+xlabel('Crank Angle (deg°)');
 ylabel('X-position (mm)');
 xlim([0 360]);
 
@@ -100,3 +100,31 @@ graph3(Element6Values, theta2);
 figure;
 graph4(Element2Values,Element4Values, ...
     Element5Values,Element6Values, theta2);
+
+%% Solving for Forces and plotting
+
+% Plots and returns reactive forces at the pins, and moment about part 2
+figure
+[F_RC,F_RB,F_RBo,F_RA,F_RAo,M2] = ...
+    pinforces(Element6Values(5,:),...
+    rx,theta2,theta4,theta5,AC);
+
+% Calculate Shear, axial and bending moments 
+
+[axialF,shearF,moment,x2,x4,x5] = ...
+    AVMcalc(F_RC,F_RB,F_RBo,F_RA,F_RAo,M2,Element6Values(5,:),...
+    rx,theta2,theta4,theta5,AC);
+
+% AVMplot creates 3D plots for deliverable 
+% h,i,j and returns max and min values of the different forces
+
+% Figure are created in function
+[maxAF,minAF] = AVMplots1(x2,x4,x5,axialF,theta2,theta4,theta5); % h Axial force plot
+
+[maxVF,minVF] = AVMplots2(x2,x4,x5,shearF,theta2,theta4,theta5); % i Shear Force plot
+
+[maxM,minM] = AVMplots3(x2,x4,x5,moment,theta2,theta4,theta5); % j Bending moment plot
+
+
+
+
