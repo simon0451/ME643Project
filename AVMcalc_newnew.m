@@ -32,6 +32,7 @@ for i=1:length(x2)
         A2(j,i) = -R23x(j)*cos(theta2(j)+pi/2) - R23y(j)*cos(pi/2-theta2(j)+pi/2); % Axial force from mid to pin A (end) of beam
     end
 end
+A2_max = max(max(A2))
 
 figure
 surf(X2,THETA2.*180./pi,A2,'edgecolor','none')
@@ -45,6 +46,7 @@ for i=1:length(x2)
         V2(i,j) = -R23x(i)*sin(theta2(i)) - R23y(i)*sin(pi/2-theta2(i)); % Axial force from mid to pin A (end) of beam
     end
 end
+V2_max = max(max(V2))
 
 figure
 surf(X2,THETA2.*180./pi,V2,'edgecolor','none')
@@ -60,6 +62,7 @@ for i=1:length(x2)
  
     end
 end
+Mom2_max = max(max(Mom2))
 
 figure
 surf(X2,THETA2.*180./pi,Mom2,'edgecolor','none')
@@ -79,6 +82,7 @@ for i=1:length(x4)
         A4(j,i) = -R64y(j)*cos(theta4(j)-pi/2) - R64x(j)*cos(pi-theta4(j)); % Axial force from mid to pin A (end) of beam
     end
 end
+A4_max = max(max(A4))
 
 figure
 surf(X4,THETA2.*180./pi,A4,'edgecolor','none')
@@ -100,6 +104,7 @@ for i=1:length(x4)
        end
     end
 end
+V4_max = max(max(V4))
 
 figure
 surf(X4,THETA2.*180./pi,V4,'edgecolor','none')
@@ -123,6 +128,7 @@ for i=1:length(x2)
 
     end
 end
+Mom4_max = max(max(Mom4))
 
 figure
 surf(X4,THETA2.*180./pi,Mom4,'edgecolor','none')
@@ -142,6 +148,7 @@ for i=1:length(x5)
         A5(j,i) = RBy(j)*cos(pi/2-theta5(j))+RBx(j)*cos(theta5(j)); % Axial force from mid to pin A (end) of beam
     end
 end
+A5_max = max(max(A5))
 
 figure
 surf(X5,THETA2.*180./pi,A5,'edgecolor','none')
@@ -153,9 +160,10 @@ axis([0 20 0 360 -25 5])
 
 for i=1:length(x5)
     for j=1:length(theta5)
-        V5(j,i) = RBy(j)*sin(pi/2-theta5(j))+RBx(j)*sin(theta5(j)); % Axial force from mid to pin A (end) of beam
+        V5(j,i) = 0; %RBy(j)*sin(pi/2-theta5(j))+RBx(j)*sin(theta5(j)); % Axial force from mid to pin A (end) of beam
     end
 end
+V5_max = max(max(V5))
 
 figure
 surf(X5,THETA2.*180./pi,V5,'edgecolor','none')
@@ -167,9 +175,10 @@ axis([0 20 0 360 -20 5])
 
 for i=1:length(x5)
     for j=1:length(theta5)
-        Mom5(j,i) = (RBy(j)*sin(pi/2-theta5(j))+RBx(j)*sin(pi/2+theta5(j)))*x5(i); % Axial force from mid to pin A (end) of beam
+        Mom5(j,i) = 0; %(RBy(j)*sin(pi/2-theta5(j))+RBx(j)*sin(pi/2+theta5(j)))*x5(i); % Axial force from mid to pin A (end) of beam
     end
 end
+Mom5_max = max(max(Mom5))
 
 figure
 surf(X5,THETA2.*180./pi,Mom5,'edgecolor','none')
@@ -183,7 +192,9 @@ axis([0 20 0 360 -400 100])
 
 axialF = [A2;A4;A5];
 shearF = [V2;V4;V5];
-moment = [Mom2;Mom4;Mom5];    
+moment = [Mom2;Mom4;Mom5];
+
+
 end
 
 
