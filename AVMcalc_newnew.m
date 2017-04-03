@@ -55,7 +55,8 @@ zlabel('Shear Force (N)')
 
 for i=1:length(x2)
     for j=1:length(theta2)
-        Mom2(i,j) = -(-R23x(j)*sin(theta2(j)) - R23y(j)*sin(pi/2-theta2(j)))*x2(i)+M2(i); % Axial force from mid to pin A (end) of beam
+        Mom2(j,i) = -(-R23x(j)*sin(theta2(j)) + R23y(j)*sin(pi/2-theta2(j)))*x2(i)+M2(j); % Axial force from mid to pin A (end) of beam
+ 
     end
 end
 
@@ -158,7 +159,7 @@ zlabel('Shear Force (N)')
 
 for i=1:length(x5)
     for j=1:length(theta5)
-        Mom5(j,i) = (RBy(j)*sin(pi/2-theta5(j))+RBx(j)*sin(theta5(j)))*x5(i); % Axial force from mid to pin A (end) of beam
+        Mom5(j,i) = (RBy(j)*sin(pi/2-theta5(j))+RBx(j)*sin(pi/2+theta5(j)))*x5(i); % Axial force from mid to pin A (end) of beam
     end
 end
 
