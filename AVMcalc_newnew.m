@@ -34,12 +34,12 @@ for i=1:length(x2)
 end
 
 figure
-surf(X2,THETA2,A2,'edgecolor','none')
-title('Axial Force Part 2')
+surf(X2,THETA2.*180./pi,A2,'edgecolor','none')
+title('Axial Force Member 2')
 xlabel('Length (mm)')
-ylabel('Crank Angel (rad)')
+ylabel('Crank Angle (Deg)')
 zlabel('Axial Force (N)')
-
+axis([0 8 0 360 -10 30])
 for i=1:length(x2)
     for j=1:length(theta2)
         V2(i,j) = -R23x(i)*sin(theta2(i)) - R23y(i)*sin(pi/2-theta2(i)); % Axial force from mid to pin A (end) of beam
@@ -47,11 +47,12 @@ for i=1:length(x2)
 end
 
 figure
-surf(X2,THETA2,V2,'edgecolor','none')
-title('Shear Force Part 2')
+surf(X2,THETA2.*180./pi,V2,'edgecolor','none')
+title('Shear Force Member 2')
 xlabel('Length (mm)')
-ylabel('Crank Angel (rad)')
+ylabel('Crank Angle (Deg)')
 zlabel('Shear Force (N)')
+axis([0 8 0 360 -30 10])
 
 for i=1:length(x2)
     for j=1:length(theta2)
@@ -61,11 +62,12 @@ for i=1:length(x2)
 end
 
 figure
-surf(X2,THETA2,Mom2,'edgecolor','none')
-title('Bending Moment of Part 2')
+surf(X2,THETA2.*180./pi,Mom2,'edgecolor','none')
+title('Bending Moment of Member 2')
 xlabel('Length (mm)')
-ylabel('Crank Angel (rad)')
-zlabel('Bending Moment (N*mm)')
+ylabel('Crank Angle (Deg)')
+zlabel('Bending Moment (N-mm)')
+axis([0 8 0 360 -150 150])
 
 %% Part 4
 
@@ -79,10 +81,12 @@ for i=1:length(x4)
 end
 
 figure
-surf(X4,THETA2,A4,'edgecolor','none')
-title('Axial Force Part 4')
+surf(X4,THETA2.*180./pi,A4,'edgecolor','none')
+title('Axial Force Member 4')
 xlabel('Length (mm)')
-ylabel('Crank Angel (rad)')
+ylabel('Crank Angle (Deg)')
+zlabel('Axial Force (N)')
+axis([0 100 0 360 -10 2])
 
 for i=1:length(x4)
     for j=1:length(theta4) 
@@ -98,11 +102,12 @@ for i=1:length(x4)
 end
 
 figure
-surf(X4,THETA2,V4,'edgecolor','none')
-title('Shear Force Part 4')
+surf(X4,THETA2.*180./pi,V4,'edgecolor','none')
+title('Shear Force Member 4')
 xlabel('Length (mm)')
-ylabel('Crank Angel (rad)')
+ylabel('Crank Angle (Deg)')
 zlabel('Shear Force (N)')
+axis([0 100 0 360 -30 10])
 
 for i=1:length(x2)
     for j=1:length(theta4) 
@@ -120,16 +125,16 @@ for i=1:length(x2)
 end
 
 figure
-surf(X4,THETA2,Mom4,'edgecolor','none')
-title('Bending Moment Part 4')
+surf(X4,THETA2.*180./pi,Mom4,'edgecolor','none')
+title('Bending Moment Member 4')
 xlabel('Length (mm)')
-ylabel('Crank Angel (rad)')
-zlabel('Bending Moment (N*mm)')
+ylabel('Crank Angle (Deg)')
+zlabel('Bending Moment (N-mm)')
 
 %% Part 5
 
 x5 = linspace(1,BoB,length(F_RBo)); % position 'x' along beam
-[X5,THETA5] = meshgrid(x4,theta4);
+[X5,THETA5] = meshgrid(x5,theta5);
 
 for i=1:length(x5)
     for j=1:length(theta5)
@@ -138,11 +143,12 @@ for i=1:length(x5)
 end
 
 figure
-surf(X5,THETA2,A5,'edgecolor','none')
-title('Axial Force Part 5')
+surf(X5,THETA2.*180./pi,A5,'edgecolor','none')
+title('Axial Force Member 5')
 xlabel('Length (mm)')
-ylabel('Crank Angel (rad)')
+ylabel('Crank Angle (Deg)')
 zlabel('Axial Force (N)')
+axis([0 20 0 360 -25 5])
 
 for i=1:length(x5)
     for j=1:length(theta5)
@@ -151,11 +157,12 @@ for i=1:length(x5)
 end
 
 figure
-surf(X5,THETA2,V5,'edgecolor','none')
-title('Shear Force Part 5')
+surf(X5,THETA2.*180./pi,V5,'edgecolor','none')
+title('Shear Force Member 5')
 xlabel('Length (mm)')
-ylabel('Crank Angel (rad)')
+ylabel('Crank Angle (Deg)')
 zlabel('Shear Force (N)')
+axis([0 20 0 360 -20 5])
 
 for i=1:length(x5)
     for j=1:length(theta5)
@@ -164,11 +171,11 @@ for i=1:length(x5)
 end
 
 figure
-surf(X5,THETA2,Mom5,'edgecolor','none')
-title('Bending Moment Part 5')
+surf(X5,THETA2.*180./pi,Mom5,'edgecolor','none')
+title('Bending Moment Member 5')
 xlabel('Length (mm)')
-ylabel('Crank Angel (rad)')
-zlabel('Bending Moment (N*mm)')
+ylabel('Crank Angle (Deg)')
+zlabel('Bending Moment (N-mm)')
 
 %% Place Values in one matrix
 

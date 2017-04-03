@@ -75,3 +75,17 @@ mag5 = sqrt(R64x.^2 + R64y.^2);
 mag5_range = get_that_out(mag5);
 % plot(theta2, mag5)
 % legend('Location','best')
+
+
+% Crank angle from 0-360 deg (0 to 2pi)
+ca = linspace(0,2*pi,length(Element6Values));
+
+plot(ca,mag1,'-',ca,mag4,'o',ca,mag3,'-',ca,mag2,'d',ca,mag5,'-')
+xlabel('Crank Angle')
+ylabel('Force (N)')
+title('Magnitude of Reaction Forces in Joints')
+set(gca,'xtick',[0 pi/2 pi 3*pi/2 2*pi])
+set(gca,'xticklabel',{'0';'2/\pi';'\pi';'3\pi/2';'2\pi'})
+xlim([0 2*pi])
+legend('location','northwest','A_o','A',...
+'B','B_o','C')

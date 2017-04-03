@@ -19,29 +19,29 @@ ry = H-AoBo; %distance between point Ao and the line member 6 slides on
 % POSITION
 [AC, theta4, theta5, rx] = positionMAT(theta2);
 
-figure;
-plot(theta2,theta4,theta2,theta5)
-axis([0 2*pi 0 2*pi])
-legend('Theta4','Theta5')
-xlabel('Theta2')
-grid on
+% figure;
+% plot(theta2,theta4,theta2,theta5)
+% axis([0 2*pi 0 2*pi])
+% legend('Theta4','Theta5')
+% xlabel('Theta2')
+% grid on
 %%
 % VELOCITY
 [AC_prime, omega4, omega5, rx_prime] = velocityMAT(AC, theta2, theta4, theta5);
 % check accuracy by plotting rx and its derivative
-figure;
-plot(theta2, rx,'b',theta2, rx_prime,'g')
-grid on
+% figure;
+% plot(theta2, rx,'b',theta2, rx_prime,'g')
+% grid on
 
 % ACCELERATION
 [AC_dprime, alpha4, alpha5, rx_dprime] = accelerationMAT(AC, AC_prime, theta2, theta4, theta5, omega4, omega5);
-figure;
-plot(theta2, rx_prime,'b', theta2, rx_dprime, 'g')
-
-plot(theta2, rx_prime,'b', theta2, rx_dprime, 'm', [2.073 2.073] , [-20 20],'k')
-
-plot(theta2, rx_prime,'b', theta2, rx_dprime, 'm')
-grid on
+% figure;
+% plot(theta2, rx_prime,'b', theta2, rx_dprime, 'g')
+% 
+% plot(theta2, rx_prime,'b', theta2, rx_dprime, 'm', [2.073 2.073] , [-20 20],'k')
+% 
+% plot(theta2, rx_prime,'b', theta2, rx_dprime, 'm')
+% grid on
 
 
 %% Solving Equations of Motion
@@ -100,10 +100,13 @@ graph3(Element6Values, theta2);
 figure;
 graph4(Element2Values,Element4Values, ...
     Element5Values,Element6Values, theta2);
+xlabel('Crank angle 0-360^o')
+ylabel('Acceleration (m/s^2)')
+title('Maginitude of Linear Acceleration of Centers of Mass')
 
 %% Solving for Forces and plotting
 % Plots and returns reactive forces at the pins, and moment about part 2
-% figure
+figure;
 [F_RC,F_RB,F_RBo,F_RA,F_RAo,M2,...
     R23x,R23y,RAoy,RAox,R43,RBy,RBx,R64y,R64x,RBox,RBoy,RC] = ...
     funk_so_brotha(theta2, theta4, theta5, AoA, BoB, BC, AC, Element6Values(5,:),rx);
