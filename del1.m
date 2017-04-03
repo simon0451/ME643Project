@@ -1,7 +1,7 @@
 %% HEADER
 %Machine Design project
 %25 March 2017
-
+close all; clear all;
 %% Given information
 theta2 = (0:pi/100:2*pi)'; %angle of the AoA bar (radians)
 AoA = 7; %mm, length of member 2
@@ -111,16 +111,19 @@ figure
 
 % Calculate Shear, axial and bending moments 
 
-[axialF,shearF,moment,x2,x4,x5] = AVMcalc(F_RC,F_RB,F_RBo,F_RA,F_RAo,M2,Element6Values(5,:),rx,theta2,theta4,theta5,AC);
+[axialF,shearF,moment,x2,x4,x5] = ...
+    AVMcalc(F_RC,F_RB,F_RBo,F_RA,F_RAo,M2,Element6Values(5,:),...
+    rx,theta2,theta4,theta5,AC);
 
-% 3D plots h,i,j
+% AVMplot creates 3D plots for deliverable 
+% h,i,j and returns max and min values of the different forces
+
 % Figure are created in function
+[maxAF,minAF] = AVMplots1(x2,x4,x5,axialF,theta2,theta4,theta5); % h Axial force plot
 
-AVMplots1(x2,x4,x5,axialF,theta2,theta4,theta5) % h Axial force plot
+[maxVF,minVF] = AVMplots2(x2,x4,x5,shearF,theta2,theta4,theta5); % i Shear Force plot
 
-AVMplots2(x2,x4,x5,shearF,theta2,theta4,theta5) % i Shear Force plot
-
-AVMplots3(x2,x4,x5,moment,theta2,theta4,theta5) % j Bending moment plot
+[maxM,minM] = AVMplots3(x2,x4,x5,moment,theta2,theta4,theta5); % j Bending moment plot
 
 
 
