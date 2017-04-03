@@ -36,23 +36,25 @@ zlabel('Zdata')
 
 %axes: member length (x), Crank angle (0 - 2pi) (y), axial force (z)
 
-xh = [.1:.1:3]; %this is a placeholder vector representing the length of the members 2, 4, and 5 (seperate plots)
-yh = [0:pi/100:2*pi]; %this is a placeholder vector representing the 
+xh = [x2;x4;x5]; %this is a placeholder vector representing the length of the members 2, 4, and 5 (seperate plots)
+yh = [theta2';theta4';theta5']; %this is a placeholder vector representing the 
+zh = axialF;
 
-[xxh,yyh] = meshgrid(xh,yh); %making the inputs into a grid so they can be plotted
+for i=1:3
+[xxh,yyh] = meshgrid(xh(i,:),yh(i,:)); %making the inputs into a grid so they can be plotted
+zzh = meshgrid(zh(i,:)); %this is the relationship between [xx,yy] and zz - so some function of 
+MAXaxial = max(zzh(i,:)); %we are interested in finding the maximum force value
+MINaxial = min(zzh(i,:)); %we are also interested in finding the minimum force value
 
-zzh = 0; %this is the relationship between [xx,yy] and zz - so some function of 
-MAXaxial = max(zzh); %we are interested in finding the maximum force value
-MINaxial = min(zzh); %we are also interested in finding the minimum force value
+figure 
 
-figure
-surf(xxh,yyh,zzh)
+surf(xxh,yyh,zzh,'edgecolor','none')
+
 title('Crank Angle and Member Length with respect to Axial Force')
 xlabel('Member Length (m)')
 ylabel('Crank Angle (rad.)')
 zlabel('Axial Force (N)')
-
-
+end
 %% Deliverable i
 %same thing as deliberable h, but this is with shear force instead of axial
 %force.
@@ -92,7 +94,7 @@ MAXmoment = max(zzj); %we are interested in finding the maximum force value
 MINmoment = min(zzj); %we are also interested in finding the minimum force 
 
 figure
-surf(xxj,yyj,zzj
+surf(xxj,yyj,zzj)
 title('Crank Angle and Member Length with respect to Internal Bending Moment')
 xlabel('Member Length (m)')
 ylabel('Crank Angle (rad.)')

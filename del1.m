@@ -102,13 +102,12 @@ graph4(Element2Values,Element4Values, ...
     Element5Values,Element6Values, theta2);
 
 %% Solving for Forces and plotting
+
 % Plots and returns reactive forces at the pins, and moment about part 2
-% figure
+figure
 [F_RC,F_RB,F_RBo,F_RA,F_RAo,M2] = ...
-        funk_so_brotha(theta2, theta4, theta5, AoA, BoB, BC, AC, Element6Values(5,:),rx);
-% [F_RC,F_RB,F_RBo,F_RA,F_RAo,M2] = ...
-%     pinforces(Element6Values(5,:),...
-%     rx,theta2,theta4,theta5,AC);
+    pinforces(Element6Values(5,:),...
+    rx,theta2,theta4,theta5,AC);
 
 % Calculate Shear, axial and bending moments 
 
