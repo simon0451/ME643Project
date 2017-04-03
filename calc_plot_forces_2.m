@@ -21,8 +21,8 @@ x2 = linspace(0,AoA,length(RAox)); % position 'x' along beam
 % length
 for i = 1:length(theta2)
     for j = 1:length(x2)
-        F_uniaxial(i,j) = -RAox(i)*cos(theta2(i)) - RAoy(i)*cos((pi/2)-theta2(i));
+        F_uniaxial(i,j) = -RAox(j)*cos(theta2(j)) - RAoy(j)*cos((pi/2)-theta2(j));
     end
 end
-surf(THETA2,X2,F_uniaxial)
+surf(THETA2,X2,F_uniaxial,'edgecolor','none')
 end
