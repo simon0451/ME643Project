@@ -71,8 +71,7 @@ Element6Values = Element6(rx, rx_prime, rx_dprime);
 figure;
 plot(Element2Values(1,:),Element2Values(2,:),'Linewidth',2);
 hold on;
-% plot(Element3Values(1,:),Element3Values(2,:));
-% plot(Element4Values(1,:),Element4Values(2,:));
+
 plot(Element5Values(1,:),Element5Values(2,:)-AoBo,'Linewidth',2);
 plot(-1*Element6Values(1,:),Element6Values(2,:),'Linewidth',2);     % We have a -1 in this b/c this accounts for the negative direction of point C
 title('Position of Points A,B,C')
@@ -110,26 +109,15 @@ figure;
 [F_RC,F_RB,F_RBo,F_RA,F_RAo,M2,...
     R23x,R23y,RAoy,RAox,R43,RBy,RBx,R64y,R64x,RBox,RBoy,RC] = ...
     funk_so_brotha(theta2, theta4, theta5, AoA, BoB, BC, AC, Element6Values(5,:),rx);
-% [F_RC,F_RB,F_RBo,F_RA,F_RAo,M2] = ...
-%     pinforces(Element6Values(5,:),...
-%     rx,theta2,theta4,theta5,AC);
 
-% Calculate Shear, axial and bending moments 
+% Calculate and plot Shear, axial and bending moments 
 
-[axialF,shearF,moment,x2,x4,x5] = ...
+[axialF,shearF,moment,x2,x4,x5,max_A,min_A,max_V,min_V,max_mom,min_mom] = ...
     AVMcalc_newnew(F_RC,F_RB,F_RBo,F_RA,F_RAo,M2,Element6Values(5,:),...
     rx,theta2,theta4,theta5,AC,...
     R23x,R23y,RAoy,RAox,R43,RBy,RBx,R64y,R64x,RBox,RBoy,RC);
 
-% AVMplot creates 3D plots for deliverable 
-% h,i,j and returns max and min values of the different forces
 
-% Figure are created in function
-% [maxAF,minAF] = AVMplots1(x2,x4,x5,axialF,theta2,theta4,theta5); % h Axial force plot
-% 
-% [maxVF,minVF] = AVMplots2(x2,x4,x5,shearF,theta2,theta4,theta5); % i Shear Force plot
-% 
-% [maxM,minM] = AVMplots3(x2,x4,x5,moment,theta2,theta4,theta5); % j Bending moment plot
 
 
 

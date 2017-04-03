@@ -1,4 +1,4 @@
-function [axialF,shearF,moment,x2,x4,x5] = AVMcalc(F_RC,F_RB,F_RBo,F_RA,F_RAo,M2,...
+function [axialF,shearF,moment,x2,x4,x5,max_A,min_A,max_V,min_V,max_mom,min_mom] = AVMcalc(F_RC,F_RB,F_RBo,F_RA,F_RAo,M2,...
     a6x,rx,theta2,theta4,theta5,AC,...
     R23x,R23y,RAoy,RAox,R43,RBy,RBx,R64y,R64x,RBox,RBoy,RC)
 
@@ -33,7 +33,8 @@ for i=1:length(x2)
     end
 end
 A2_max = max(max(A2));
-A2_min = min(min(A2))
+A2_min = min(min(A2));
+
 figure
 surf(X2,THETA2.*180./pi,A2,'edgecolor','none')
 title('Axial Force Member 2')
@@ -46,8 +47,10 @@ for i=1:length(x2)
         V2(i,j) = -R23x(i)*sin(theta2(i)) - R23y(i)*sin(pi/2-theta2(i)); % Axial force from mid to pin A (end) of beam
     end
 end
+
 V2_max = max(max(V2));
-V2_min = min(min(V2))
+V2_min = min(min(V2));
+
 figure
 surf(X2,THETA2.*180./pi,V2,'edgecolor','none')
 title('Shear Force Member 2')
@@ -63,7 +66,7 @@ for i=1:length(x2)
     end
 end
 Mom2_max = max(max(Mom2));
-Mom2_min = min(min(Mom2))
+Mom2_min = min(min(Mom2));
 
 figure
 surf(X2,THETA2.*180./pi,Mom2,'edgecolor','none')
@@ -84,7 +87,7 @@ for i=1:length(x4)
     end
 end
 A4_max = max(max(A4));
-A4_min = min(min(A4))
+A4_min = min(min(A4));
 
 figure
 surf(X4,THETA2.*180./pi,A4,'edgecolor','none')
@@ -107,7 +110,7 @@ for i=1:length(x4)
     end
 end
 V4_max = max(max(V4));
-V4_min = min(min(V4))
+V4_min = min(min(V4));
 
 figure
 surf(X4,THETA2.*180./pi,V4,'edgecolor','none')
@@ -132,7 +135,7 @@ for i=1:length(x2)
     end
 end
 Mom4_max = max(max(Mom4));
-Mom4_min = min(min(Mom4))
+Mom4_min = min(min(Mom4));
 
 figure
 surf(X4,THETA2.*180./pi,Mom4,'edgecolor','none')
@@ -153,7 +156,7 @@ for i=1:length(x5)
     end
 end
 A5_max = max(max(A5));
-A5_min = min(min(A5))
+A5_min = min(min(A5));
 
 figure
 surf(X5,THETA2.*180./pi,A5,'edgecolor','none')
@@ -169,7 +172,7 @@ for i=1:length(x5)
     end
 end
 V5_max = max(max(V5));
-V5_min = min(min(V5))
+V5_min = min(min(V5));
 
 figure
 surf(X5,THETA2.*180./pi,V5,'edgecolor','none')
@@ -185,7 +188,7 @@ for i=1:length(x5)
     end
 end
 Mom5_max = max(max(Mom5));
-Mom5_min = min(min(Mom5))
+Mom5_min = min(min(Mom5));
 
 figure
 surf(X5,THETA2.*180./pi,Mom5,'edgecolor','none')
@@ -195,11 +198,18 @@ ylabel('Crank Angle (Deg)')
 zlabel('Bending Moment (N-mm)')
 axis([0 20 0 360 -400 100])
 
-%% Place Values in one matrix
+%% Place Values in one matrix to output
 
 axialF = [A2;A4;A5];
 shearF = [V2;V4;V5];
 moment = [Mom2;Mom4;Mom5];
+
+max_A = [A2_max,A4_max,A5_max];
+min_A = [A2_min,A4_min,A5_min];
+max_V = [V2_max,V4_max,V5_max];
+min_V = [V2_min,V4_min,V5_min];
+max_mom = [Mom2_max,Mom4_max,Mom5_max];
+min_mom = [Mom2_min,Mom4_min,Mom5_min];
 
 
 end

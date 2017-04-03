@@ -1,0 +1,2175 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>del1_old</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-04-03"><meta name="DC.source" content="del1_old.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">HEADER</a></li><li><a href="#2">Given information</a></li><li><a href="#3">Solving for Position, Velocity, and Acceleration</a></li><li><a href="#5">Solving Equations of Motion</a></li><li><a href="#6">Graph 2</a></li><li><a href="#7">Graph 3</a></li><li><a href="#8">Graph 4</a></li><li><a href="#9">Solving for Forces and plotting</a></li></ul></div><h2>HEADER<a name="1"></a></h2><pre class="codeinput"><span class="comment">%Machine Design project</span>
+<span class="comment">%25 March 2017</span>
+close <span class="string">all</span>; clear <span class="string">all</span>;
+</pre><h2>Given information<a name="2"></a></h2><pre class="codeinput">theta2 = (0:pi/100:2*pi)'; <span class="comment">%angle of the AoA bar (radians)</span>
+AoA = 7; <span class="comment">%mm, length of member 2</span>
+BoB = 20; <span class="comment">%mm, length of member 5</span>
+BC = 100; <span class="comment">%mm, length of member 4</span>
+AoBo = 45; <span class="comment">%mm, length of member 1 (technically just the length between the two fixed points)</span>
+H = 102; <span class="comment">%mm, height of system</span>
+omega2 = 1; <span class="comment">%RPM, rotation of member 2 from motor</span>
+m = .45; <span class="comment">%kg, mass of member 6</span>
+k = 175; <span class="comment">%N/m, spring constant of spring</span>
+rho = 1070; <span class="comment">%kg/m^3, density of the plastic we are using to make the parts from</span>
+ry = H-AoBo; <span class="comment">%distance between point Ao and the line member 6 slides on</span>
+</pre><h2>Solving for Position, Velocity, and Acceleration<a name="3"></a></h2><p>POSITION</p><pre class="codeinput">[AC, theta4, theta5, rx] = positionMAT(theta2);
+
+<span class="comment">% figure;</span>
+<span class="comment">% plot(theta2,theta4,theta2,theta5)</span>
+<span class="comment">% axis([0 2*pi 0 2*pi])</span>
+<span class="comment">% legend('Theta4','Theta5')</span>
+<span class="comment">% xlabel('Theta2')</span>
+<span class="comment">% grid on</span>
+</pre><pre class="codeoutput">
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the default value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+
+
+</pre><p>VELOCITY</p><pre class="codeinput">[AC_prime, omega4, omega5, rx_prime] = velocityMAT(AC, theta2, theta4, theta5);
+<span class="comment">% check accuracy by plotting rx and its derivative</span>
+<span class="comment">% figure;</span>
+<span class="comment">% plot(theta2, rx,'b',theta2, rx_prime,'g')</span>
+<span class="comment">% grid on</span>
+
+<span class="comment">% ACCELERATION</span>
+[AC_dprime, alpha4, alpha5, rx_dprime] = accelerationMAT(AC, AC_prime, theta2, theta4, theta5, omega4, omega5);
+<span class="comment">% figure;</span>
+<span class="comment">% plot(theta2, rx_prime,'b', theta2, rx_dprime, 'g')</span>
+<span class="comment">%</span>
+<span class="comment">% plot(theta2, rx_prime,'b', theta2, rx_dprime, 'm', [2.073 2.073] , [-20 20],'k')</span>
+<span class="comment">%</span>
+<span class="comment">% plot(theta2, rx_prime,'b', theta2, rx_dprime, 'm')</span>
+<span class="comment">% grid on</span>
+</pre><h2>Solving Equations of Motion<a name="5"></a></h2><pre class="codeinput"><span class="comment">%theta2 = 0:(2*pi)/100:(2*pi); % a random range of thetas to test the function</span>
+
+<span class="comment">%Element 2</span>
+Element2Values = Element2(theta2); <span class="comment">%[rcm2ax rcm2ay vcm2ax vcm2ay acm2x acm2y]</span>
+
+<span class="comment">%Element 3</span>
+Element3Values = Element3(theta2); <span class="comment">%[rax ray vax vay aax aay]</span>
+
+<span class="comment">%Element 4</span>
+<span class="comment">%requires theta4, omega4, and alpha4 to run - code exists otherwise</span>
+Element4Values = Element4(theta2,theta4,omega4,alpha4); <span class="comment">%[rcm4x rcm4y vcm4x vcm4y acm4x acm4y]</span>
+
+<span class="comment">%Element 5</span>
+<span class="comment">%requries thetaa5, omega5, and alpha5 to run - code exists otherwise</span>
+Element5Values = Element5(theta5,omega5,alpha5);
+
+<span class="comment">%Element 6</span>
+<span class="comment">%requires theta5, theta4, omega5, omega4, alpha5, and alpha4 to run,</span>
+<span class="comment">%otherwise ready to go</span>
+Element6Values = Element6(rx, rx_prime, rx_dprime);
+
+<span class="comment">% Plotting graph 1</span>
+figure;
+plot(Element2Values(1,:),Element2Values(2,:),<span class="string">'Linewidth'</span>,2);
+hold <span class="string">on</span>;
+<span class="comment">% plot(Element3Values(1,:),Element3Values(2,:));</span>
+<span class="comment">% plot(Element4Values(1,:),Element4Values(2,:));</span>
+plot(Element5Values(1,:),Element5Values(2,:)-AoBo,<span class="string">'Linewidth'</span>,2);
+plot(-1*Element6Values(1,:),Element6Values(2,:),<span class="string">'Linewidth'</span>,2);     <span class="comment">% We have a -1 in this b/c this accounts for the negative direction of point C</span>
+title(<span class="string">'Position of Points A,B,C'</span>)
+xlabel(<span class="string">'X Displacement (mm)'</span>)
+ylabel(<span class="string">'Y Displacement (mm)'</span>)
+legend(<span class="string">'Point A'</span>,<span class="string">'Point B'</span>,<span class="string">'Point C'</span>);
+ylim([-50 60]);
+xlim([-70 30]);
+grid <span class="string">on</span>;
+</pre><img vspace="5" hspace="5" src="del1_old_01.png" alt=""> <h2>Graph 2<a name="6"></a></h2><pre class="codeinput">figure;
+plot(theta2*180/pi,Element6Values(1,:));
+grid <span class="string">on</span>;
+title(<span class="string">'X-position of Point C versus Crank Angle'</span>);
+xlabel(<span class="string">'Crank Angle (deg&deg;)'</span>);
+ylabel(<span class="string">'X-position (mm)'</span>);
+xlim([0 360]);
+</pre><img vspace="5" hspace="5" src="del1_old_02.png" alt=""> <h2>Graph 3<a name="7"></a></h2><pre class="codeinput">figure;
+graph3(Element6Values, theta2);
+</pre><img vspace="5" hspace="5" src="del1_old_03.png" alt=""> <h2>Graph 4<a name="8"></a></h2><pre class="codeinput">figure;
+graph4(Element2Values,Element4Values, <span class="keyword">...</span>
+    Element5Values,Element6Values, theta2);
+xlabel(<span class="string">'Crank angle 0-360^o'</span>)
+ylabel(<span class="string">'Acceleration (m/s^2)'</span>)
+title(<span class="string">'Maginitude of Linear Acceleration of Centers of Mass'</span>)
+</pre><img vspace="5" hspace="5" src="del1_old_04.png" alt=""> <h2>Solving for Forces and plotting<a name="9"></a></h2><p>Plots and returns reactive forces at the pins, and moment about part 2</p><pre class="codeinput">figure;
+[F_RC,F_RB,F_RBo,F_RA,F_RAo,M2,<span class="keyword">...</span>
+    R23x,R23y,RAoy,RAox,R43,RBy,RBx,R64y,R64x,RBox,RBoy,RC] = <span class="keyword">...</span>
+    funk_so_brotha(theta2, theta4, theta5, AoA, BoB, BC, AC, Element6Values(5,:),rx);
+<span class="comment">% [F_RC,F_RB,F_RBo,F_RA,F_RAo,M2] = ...</span>
+<span class="comment">%     pinforces(Element6Values(5,:),...</span>
+<span class="comment">%     rx,theta2,theta4,theta5,AC);</span>
+
+<span class="comment">% Calculate Shear, axial and bending moments</span>
+
+[axialF,shearF,moment,x2,x4,x5] = <span class="keyword">...</span>
+    AVMcalc_newnew(F_RC,F_RB,F_RBo,F_RA,F_RAo,M2,Element6Values(5,:),<span class="keyword">...</span>
+    rx,theta2,theta4,theta5,AC,<span class="keyword">...</span>
+    R23x,R23y,RAoy,RAox,R43,RBy,RBx,R64y,R64x,RBox,RBoy,RC);
+
+<span class="comment">% AVMplot creates 3D plots for deliverable</span>
+<span class="comment">% h,i,j and returns max and min values of the different forces</span>
+
+<span class="comment">% Figure are created in function</span>
+<span class="comment">% [maxAF,minAF] = AVMplots1(x2,x4,x5,axialF,theta2,theta4,theta5); % h Axial force plot</span>
+<span class="comment">%</span>
+<span class="comment">% [maxVF,minVF] = AVMplots2(x2,x4,x5,shearF,theta2,theta4,theta5); % i Shear Force plot</span>
+<span class="comment">%</span>
+<span class="comment">% [maxM,minM] = AVMplots3(x2,x4,x5,moment,theta2,theta4,theta5); % j Bending moment plot</span>
+</pre><pre class="codeoutput">
+A2_min =
+
+   -6.8762
+
+
+V2_min =
+
+  -23.9475
+
+
+Mom2_min =
+
+ -141.9177
+
+
+A4_min =
+
+   -9.7190
+
+
+V4_min =
+
+  -24.8364
+
+
+Mom4_min =
+
+  -1.5477e+03
+
+
+A5_min =
+
+  -20.1132
+
+
+V5_min =
+
+     0
+
+
+Mom5_min =
+
+     0
+
+</pre><img vspace="5" hspace="5" src="del1_old_05.png" alt=""> <img vspace="5" hspace="5" src="del1_old_06.png" alt=""> <img vspace="5" hspace="5" src="del1_old_07.png" alt=""> <img vspace="5" hspace="5" src="del1_old_08.png" alt=""> <img vspace="5" hspace="5" src="del1_old_09.png" alt=""> <img vspace="5" hspace="5" src="del1_old_10.png" alt=""> <img vspace="5" hspace="5" src="del1_old_11.png" alt=""> <img vspace="5" hspace="5" src="del1_old_12.png" alt=""> <img vspace="5" hspace="5" src="del1_old_13.png" alt=""> <img vspace="5" hspace="5" src="del1_old_14.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% HEADER
+%Machine Design project
+%25 March 2017
+close all; clear all;
+%% Given information
+theta2 = (0:pi/100:2*pi)'; %angle of the AoA bar (radians)
+AoA = 7; %mm, length of member 2
+BoB = 20; %mm, length of member 5
+BC = 100; %mm, length of member 4
+AoBo = 45; %mm, length of member 1 (technically just the length between the two fixed points)
+H = 102; %mm, height of system
+omega2 = 1; %RPM, rotation of member 2 from motor
+m = .45; %kg, mass of member 6
+k = 175; %N/m, spring constant of spring
+rho = 1070; %kg/m^3, density of the plastic we are using to make the parts from
+ry = H-AoBo; %distance between point Ao and the line member 6 slides on
+
+%% Solving for Position, Velocity, and Acceleration
+% POSITION
+[AC, theta4, theta5, rx] = positionMAT(theta2);
+
+% figure;
+% plot(theta2,theta4,theta2,theta5)
+% axis([0 2*pi 0 2*pi])
+% legend('Theta4','Theta5')
+% xlabel('Theta2')
+% grid on
+%%
+% VELOCITY
+[AC_prime, omega4, omega5, rx_prime] = velocityMAT(AC, theta2, theta4, theta5);
+% check accuracy by plotting rx and its derivative
+% figure;
+% plot(theta2, rx,'b',theta2, rx_prime,'g')
+% grid on
+
+% ACCELERATION
+[AC_dprime, alpha4, alpha5, rx_dprime] = accelerationMAT(AC, AC_prime, theta2, theta4, theta5, omega4, omega5);
+% figure;
+% plot(theta2, rx_prime,'b', theta2, rx_dprime, 'g')
+% 
+% plot(theta2, rx_prime,'b', theta2, rx_dprime, 'm', [2.073 2.073] , [-20 20],'k')
+% 
+% plot(theta2, rx_prime,'b', theta2, rx_dprime, 'm')
+% grid on
+
+
+%% Solving Equations of Motion
+
+%theta2 = 0:(2*pi)/100:(2*pi); % a random range of thetas to test the function
+
+%Element 2
+Element2Values = Element2(theta2); %[rcm2ax rcm2ay vcm2ax vcm2ay acm2x acm2y]
+
+%Element 3
+Element3Values = Element3(theta2); %[rax ray vax vay aax aay]
+
+%Element 4
+%requires theta4, omega4, and alpha4 to run - code exists otherwise
+Element4Values = Element4(theta2,theta4,omega4,alpha4); %[rcm4x rcm4y vcm4x vcm4y acm4x acm4y]
+
+%Element 5
+%requries thetaa5, omega5, and alpha5 to run - code exists otherwise
+Element5Values = Element5(theta5,omega5,alpha5);
+
+%Element 6
+%requires theta5, theta4, omega5, omega4, alpha5, and alpha4 to run,
+%otherwise ready to go
+Element6Values = Element6(rx, rx_prime, rx_dprime);
+
+% Plotting graph 1
+figure;
+plot(Element2Values(1,:),Element2Values(2,:),'Linewidth',2);
+hold on;
+% plot(Element3Values(1,:),Element3Values(2,:));
+% plot(Element4Values(1,:),Element4Values(2,:));
+plot(Element5Values(1,:),Element5Values(2,:)-AoBo,'Linewidth',2);
+plot(-1*Element6Values(1,:),Element6Values(2,:),'Linewidth',2);     % We have a -1 in this b/c this accounts for the negative direction of point C
+title('Position of Points A,B,C')
+xlabel('X Displacement (mm)')
+ylabel('Y Displacement (mm)')
+legend('Point A','Point B','Point C');
+ylim([-50 60]);
+xlim([-70 30]);
+grid on;
+
+%% Graph 2
+figure;
+plot(theta2*180/pi,Element6Values(1,:));
+grid on;
+title('X-position of Point C versus Crank Angle');
+xlabel('Crank Angle (deg°)');
+ylabel('X-position (mm)');
+xlim([0 360]);
+
+%% Graph 3
+figure;
+graph3(Element6Values, theta2);
+
+%% Graph 4
+figure;
+graph4(Element2Values,Element4Values, ...
+    Element5Values,Element6Values, theta2);
+xlabel('Crank angle 0-360^o')
+ylabel('Acceleration (m/s^2)')
+title('Maginitude of Linear Acceleration of Centers of Mass')
+
+%% Solving for Forces and plotting
+% Plots and returns reactive forces at the pins, and moment about part 2
+figure;
+[F_RC,F_RB,F_RBo,F_RA,F_RAo,M2,...
+    R23x,R23y,RAoy,RAox,R43,RBy,RBx,R64y,R64x,RBox,RBoy,RC] = ...
+    funk_so_brotha(theta2, theta4, theta5, AoA, BoB, BC, AC, Element6Values(5,:),rx);
+% [F_RC,F_RB,F_RBo,F_RA,F_RAo,M2] = ...
+%     pinforces(Element6Values(5,:),...
+%     rx,theta2,theta4,theta5,AC);
+
+% Calculate Shear, axial and bending moments 
+
+[axialF,shearF,moment,x2,x4,x5] = ...
+    AVMcalc_newnew(F_RC,F_RB,F_RBo,F_RA,F_RAo,M2,Element6Values(5,:),...
+    rx,theta2,theta4,theta5,AC,...
+    R23x,R23y,RAoy,RAox,R43,RBy,RBx,R64y,R64x,RBox,RBoy,RC);
+
+% AVMplot creates 3D plots for deliverable 
+% h,i,j and returns max and min values of the different forces
+
+% Figure are created in function
+% [maxAF,minAF] = AVMplots1(x2,x4,x5,axialF,theta2,theta4,theta5); % h Axial force plot
+% 
+% [maxVF,minVF] = AVMplots2(x2,x4,x5,shearF,theta2,theta4,theta5); % i Shear Force plot
+% 
+% [maxM,minM] = AVMplots3(x2,x4,x5,moment,theta2,theta4,theta5); % j Bending moment plot
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
