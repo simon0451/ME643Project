@@ -99,7 +99,10 @@ graph3(Element6Values, theta2);
 %% Graph 4
 figure;
 graph4(Element2Values,Element4Values, ...
-    Element5Values,Element6Values, theta2);
+    Element5Values,Element6Values, theta2.*180./pi);
+xlabel('Crank Angle (0-360^o)')
+ylabel('Magnitude of Linear Acceleration (mm/s^2)')
+axis([0 360 0 10]) 
 
 %% Solving for Forces and plotting
 % Plots and returns reactive forces at the pins, and moment about part 2
@@ -107,9 +110,18 @@ graph4(Element2Values,Element4Values, ...
 [F_RC,F_RB,F_RBo,F_RA,F_RAo,M2] = ...
         funk_so_brotha(theta2, theta4, theta5, AoA, BoB, BC, AC, Element6Values(5,:),rx);
 % [F_RC,F_RB,F_RBo,F_RA,F_RAo,M2] = ...
-%     pinforces(Element6Values(5,:),...
+%     pinforces(Element6Values(5,:),...     %%% First Method
 %     rx,theta2,theta4,theta5,AC);
-
+%%
+% Find x and y components of pins etc...
+[R23x,R23y,RAoy,RAox,M2,R43,RBy,RBx,R64y,R64x,RBox,RBoy,RC] = funk_so_sista(theta2, theta4, theta5, AoA, BoB, ...
+BC, AC, Element6Values,rx);
+%%
+% Calculate and plot shear axial and bending moments for member 2
+figure;
+calc_plot_forces_2(RAox,RAoy);
+title('SYD TRIAL')
+%%
 % Calculate Shear, axial and bending moments 
 
 [axialF,shearF,moment,x2,x4,x5] = ...
